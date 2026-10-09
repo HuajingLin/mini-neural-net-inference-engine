@@ -1,7 +1,0 @@
-{
-	"InstallScripts" : 
-	[
-		"/home/lin/mini_infer/build/cmake_install.cmake"
-	],
-	"Parallel" : false
-}

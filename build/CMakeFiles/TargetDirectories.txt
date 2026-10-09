@@ -1,4 +1,0 @@
-/home/lin/mini_infer/build/CMakeFiles/test_tensor.dir
-/home/lin/mini_infer/build/CMakeFiles/test.dir
-/home/lin/mini_infer/build/CMakeFiles/edit_cache.dir
-/home/lin/mini_infer/build/CMakeFiles/rebuild_cache.dir
