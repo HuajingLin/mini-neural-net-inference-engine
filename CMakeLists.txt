@@ -23,3 +23,7 @@ add_test(NAME tensor COMMAND test_tensor)
 add_executable(test_gemm tests/test_gemm.cpp)
 target_link_libraries(test_gemm PRIVATE mini)
 add_test(NAME gemm COMMAND test_gemm ${CMAKE_SOURCE_DIR}/tests/gemm_ref.txt)
+
+add_executable(test_ops tests/test_ops.cpp)
+target_link_libraries(test_ops PRIVATE mini)
+add_test(NAME ops COMMAND test_ops ${CMAKE_SOURCE_DIR}/tests/ops_ref.txt)

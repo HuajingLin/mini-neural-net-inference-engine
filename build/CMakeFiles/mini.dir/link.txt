@@ -1,0 +1,2 @@
+/usr/bin/ar qc libmini.a CMakeFiles/mini.dir/src/ops.cpp.o
+/usr/bin/ranlib libmini.a

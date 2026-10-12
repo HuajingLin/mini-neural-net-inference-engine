@@ -4,7 +4,7 @@ A minimalist neural network inference engine.
 It helps me understand the core workflow of AI inference and bridges the gap between C++ and AI.    
 Written in pure C++17 with no external dependencies. 
 
-[project WIKI](https://github.com/HuajingLin/mini-neural-net-inference-engine/wiki/mini-neural-network-inference-engine)
+[Project WIKI](https://github.com/HuajingLin/mini-neural-net-inference-engine/wiki/mini-neural-network-inference-engine)
 
 ## Environment
 
@@ -13,10 +13,13 @@ Written in pure C++17 with no external dependencies.
 
 # CMake Build
 ```
-python tools/gen_gemm_ref.py
+python3 tools/gen_gemm_ref.py
+python3 tools/gen_ops_ref.py
+
 cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
+
 ```
 
 ## Project Structure
@@ -33,7 +36,8 @@ mini_infer/
 │   └── gen_gemm_ref.py     # generate matrix
 ├── tests/
 │   ├── test_tensor.cpp     # test tensor
-│   └── test_gemm.cpp       # test GEMM
+│   ├── test_gemm.cpp       # test GEMM
+│   └── test_ops.cpp        # test ops
 ├── bench/
 └── apps/
 ```

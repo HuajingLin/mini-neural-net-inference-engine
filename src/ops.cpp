@@ -1,5 +1,8 @@
 #include "mini/ops.h"
+
 #include <stdexcept>
+#include <algorithm>
+#include <cmath>
 
 namespace mini {
 
@@ -26,6 +29,39 @@ Tensor matmul(const Tensor& a, const Tensor& b) {
     Tensor c({M, N}); 
     gemm(a.data(), b.data(), c.data(), M, K, N); 
     return c;
+}
+
+void add_bias(float* X, const float* bias, size_t M, size_t N) {
+    for (size_t i = 0; i < M; ++i) {
+        float* row = X + i * N;
+        for (size_t j = 0; j < N; ++j) {
+            row[j] += bias[j];
+        }
+    }
+}
+
+void relu(float* X, size_t n) {
+    for (size_t i = 0; i < n; ++i) {
+        if (X[i] < 0.0f) X[i] = 0.0f;
+    }
+}
+
+void softmax(float* X, size_t M, size_t N) {
+    for (size_t i = 0; i < M; ++i) {
+        float* row = X + i * N;
+
+        float max_val = row[0];
+        for (size_t j = 1; j < N; ++j) max_val = std::max(max_val, row[j]);
+
+        float sum = 0.0f;
+        for (size_t j = 0; j < N; ++j) {
+            row[j] = std::exp(row[j] - max_val);
+            sum += row[j];
+        }
+
+        const float inv_sum = 1.0f / sum;
+        for (size_t j = 0; j < N; ++j) row[j] *= inv_sum;
+    }
 }
 
 } // namespace mini

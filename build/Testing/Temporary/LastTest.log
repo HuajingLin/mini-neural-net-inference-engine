@@ -1,0 +1,62 @@
+Start testing: Oct 12 15:08 EDT
+----------------------------------------------------------
+1/3 Testing: tensor
+1/3 Test: tensor
+Command: "/home/lin/mini_infer/build/test_tensor"
+Directory: /home/lin/mini_infer/build
+"tensor" start time: Oct 12 15:08 EDT
+Output:
+----------------------------------------------------------
+tensor ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"tensor" end time: Oct 12 15:08 EDT
+"tensor" time elapsed: 00:00:00
+----------------------------------------------------------
+
+2/3 Testing: gemm
+2/3 Test: gemm
+Command: "/home/lin/mini_infer/build/test_gemm" "/home/lin/mini_infer/tests/gemm_ref.txt"
+Directory: /home/lin/mini_infer/build
+"gemm" start time: Oct 12 15:08 EDT
+Output:
+----------------------------------------------------------
+hand-computed ok
+case 0 (1x1x1): max abs err = 0
+case 1 (2x3x2): max abs err = 5.96046e-08
+case 2 (5x7x3): max abs err = 1.19209e-07
+case 3 (16x784x128): max abs err = 9.15527e-05
+case 4 (1x128x10): max abs err = 5.72205e-06
+numpy comparison ok
+<end of output>
+Test time =   0.02 sec
+----------------------------------------------------------
+Test Passed.
+"gemm" end time: Oct 12 15:08 EDT
+"gemm" time elapsed: 00:00:00
+----------------------------------------------------------
+
+3/3 Testing: ops
+3/3 Test: ops
+Command: "/home/lin/mini_infer/build/test_ops" "/home/lin/mini_infer/tests/ops_ref.txt"
+Directory: /home/lin/mini_infer/build
+"ops" start time: Oct 12 15:08 EDT
+Output:
+----------------------------------------------------------
+hand-computed ok
+case 0 (1x10): bias 0  relu 0  softmax 3.63798e-12
+case 1 (4x10): bias 0  relu 0  softmax 1.49012e-08
+case 2 (3x128): bias 0  relu 0  softmax 2.98023e-07
+case 3 (2x5): bias 0  relu 0  softmax 1.19209e-07
+numpy comparison ok
+<end of output>
+Test time =   0.00 sec
+----------------------------------------------------------
+Test Passed.
+"ops" end time: Oct 12 15:08 EDT
+"ops" time elapsed: 00:00:00
+----------------------------------------------------------
+
+End testing: Oct 12 15:08 EDT
