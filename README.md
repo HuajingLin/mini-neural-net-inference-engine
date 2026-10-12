@@ -10,8 +10,10 @@ Written in pure C++17 with no external dependencies.
 - Build System: CMake (>=3.18, requires CUDA language support)
 
 # CMake Build
-cmake -S . -B build -DCMAKE_CUDA_ARCHITECTURES=75 -DCMAKE_BUILD_TYPE=Release
-cmake --build build -j
+python tools/gen_gemm_ref.py
+cmake -S . -B build
+cmake --build build
+ctest --test-dir build --output-on-failure
 
 ## Project Structure
 ```
