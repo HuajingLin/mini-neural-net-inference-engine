@@ -10,20 +10,28 @@ Written in pure C++17 with no external dependencies.
 - Build System: CMake (>=3.18, requires CUDA language support)
 
 # CMake Build
+```
 python tools/gen_gemm_ref.py
 cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
+```
 
 ## Project Structure
 ```
 mini_infer/
 ├── CMakeLists.txt
+├── README.md
 ├── include/mini/
-│   └── tensor.h        # L1 Tensor
+│   ├── tensor.h        # L1 Tensor
+│   └── ops.h           # L2 GEMM
 ├── src/
+│   └── ops.cpp         
 ├── tools/
-├── tests/test_tensor.cpp   # test tensor
+│   └── gen_gemm_ref.py     # generate matrix
+├── tests/
+│   ├── test_tensor.cpp     # test tensor
+│   └── test_gemm.cpp       # test GEMM
 ├── bench/
 └── apps/
 ```
