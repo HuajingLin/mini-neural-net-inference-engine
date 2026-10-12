@@ -2,7 +2,9 @@
 # A minimalist neural network inference engine
 A minimalist neural network inference engine.    
 It helps me understand the core workflow of AI inference and bridges the gap between C++ and AI.    
-Written in pure C++17 with no external dependencies.   
+Written in pure C++17 with no external dependencies. 
+
+[project WIKI](https://github.com/HuajingLin/mini-neural-net-inference-engine/wiki/mini-neural-network-inference-engine)
 
 ## Environment
 
