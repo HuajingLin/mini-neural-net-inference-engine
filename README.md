@@ -28,16 +28,21 @@ mini_infer/
 ├── CMakeLists.txt
 ├── README.md
 ├── include/mini/
-│   ├── tensor.h        # L1 Tensor
-│   └── ops.h           # L2 GEMM
+│   ├── tensor.h        # Tensor
+│   ├── ops.h           # GEMM
+│   ├── layers.h        # layer interface
+│   └── model.h         # Sequential
 ├── src/
-│   └── ops.cpp         
+│   ├── ops.cpp     
+│   └── layers.cpp     
 ├── tools/
-│   └── gen_gemm_ref.py     # generate matrix
+│   ├── gen_gemm_ref.py     # generate matrix
+│   └── gen_ops_ref.py      # generate matrix
 ├── tests/
 │   ├── test_tensor.cpp     # test tensor
 │   ├── test_gemm.cpp       # test GEMM
-│   └── test_ops.cpp        # test ops
+│   ├── test_ops.cpp        # test operators
+│   └── test_model.cpp      # test model
 ├── bench/
 └── apps/
 ```

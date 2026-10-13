@@ -11,7 +11,7 @@ endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-add_library(mini STATIC src/ops.cpp)
+add_library(mini STATIC src/ops.cpp src/layers.cpp)
 target_include_directories(mini PUBLIC include)
 
 enable_testing()
@@ -27,3 +27,7 @@ add_test(NAME gemm COMMAND test_gemm ${CMAKE_SOURCE_DIR}/tests/gemm_ref.txt)
 add_executable(test_ops tests/test_ops.cpp)
 target_link_libraries(test_ops PRIVATE mini)
 add_test(NAME ops COMMAND test_ops ${CMAKE_SOURCE_DIR}/tests/ops_ref.txt)
+
+add_executable(test_model tests/test_model.cpp)
+target_link_libraries(test_model PRIVATE mini)
+add_test(NAME model COMMAND test_model)
