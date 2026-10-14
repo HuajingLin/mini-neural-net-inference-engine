@@ -11,7 +11,7 @@ endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-add_library(mini STATIC src/ops.cpp src/layers.cpp)
+add_library(mini STATIC src/ops.cpp src/layers.cpp src/loader.cpp)
 target_include_directories(mini PUBLIC include)
 
 enable_testing()
@@ -31,3 +31,9 @@ add_test(NAME ops COMMAND test_ops ${CMAKE_SOURCE_DIR}/tests/ops_ref.txt)
 add_executable(test_model tests/test_model.cpp)
 target_link_libraries(test_model PRIVATE mini)
 add_test(NAME model COMMAND test_model)
+
+add_executable(test_weights tests/test_weights.cpp)
+target_link_libraries(test_weights PRIVATE mini)
+add_test(NAME weights COMMAND test_weights
+         ${CMAKE_SOURCE_DIR}/models/mnist_mlp.bin
+         ${CMAKE_SOURCE_DIR}/models/mnist_ref.bin)
