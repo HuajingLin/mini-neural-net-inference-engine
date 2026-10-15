@@ -13,13 +13,17 @@ Written in pure C++17 with no external dependencies.
 
 # CMake Build
 ```
-python3 tools/gen_gemm_ref.py
-python3 tools/gen_ops_ref.py
-python tools/export_mnist.py
-
 cmake -S . -B build
 cmake --build build
 ctest --test-dir build --output-on-failure
+
+source .venv/bin/activate
+python tools/export_mnist.py
+deactivate
+
+./build/mnist_infer models/mnist_mlp.bin \
+    data/MNIST/raw/t10k-images-idx3-ubyte \
+    data/MNIST/raw/t10k-labels-idx1-ubyte
 
 ```
 
