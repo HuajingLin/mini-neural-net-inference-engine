@@ -51,7 +51,8 @@ void softmax(float* X, size_t M, size_t N) {
         float* row = X + i * N;
 
         float max_val = row[0];
-        for (size_t j = 1; j < N; ++j) max_val = std::max(max_val, row[j]);
+        for (size_t j = 1; j < N; ++j)
+            max_val = std::max(max_val, row[j]);
 
         float sum = 0.0f;
         for (size_t j = 0; j < N; ++j) {
@@ -60,8 +61,18 @@ void softmax(float* X, size_t M, size_t N) {
         }
 
         const float inv_sum = 1.0f / sum;
-        for (size_t j = 0; j < N; ++j) row[j] *= inv_sum;
+        for (size_t j = 0; j < N; ++j)
+            row[j] *= inv_sum;
     }
+}
+
+size_t argmax(const float* x, size_t n) {
+    size_t best = 0;
+    for (size_t i = 1; i < n; ++i) {
+        if (x[i] > x[best])
+            best = i;
+    }
+    return best;
 }
 
 } // namespace mini

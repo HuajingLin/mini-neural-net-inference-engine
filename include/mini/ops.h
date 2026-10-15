@@ -20,4 +20,6 @@ void relu(float* X, size_t n);
 //In-place operation: Apply numerically stable softmax to each row of X[M, N].
 void softmax(float* X, size_t M, size_t N);
 
+// Returns the index of the maximum value in x[0..n)
+size_t argmax(const float* x, size_t n);
 }  // namespace mini

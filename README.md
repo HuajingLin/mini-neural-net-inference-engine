@@ -1,7 +1,7 @@
 
 # A minimalist neural network inference engine
 A minimalist neural network inference engine.    
-It helps me understand the core workflow of AI inference and bridges the gap between C++ and AI.    
+It helps me understand the core workflow of AI inference and the Data Flow of Neural Networks.    
 Written in pure C++17 with no external dependencies. 
 
 [Project WIKI](https://github.com/HuajingLin/mini-neural-net-inference-engine/wiki/mini-neural-network-inference-engine)
@@ -25,21 +25,46 @@ ctest --test-dir build --output-on-failure
 
 ## output example
 ```
-Test project /home/lin/mini_infer/build
-    Start 1: tensor
-1/5 Test #1: tensor ...........................   Passed    0.00 sec
-    Start 2: gemm
-2/5 Test #2: gemm .............................   Passed    0.03 sec
-    Start 3: ops
-3/5 Test #3: ops ..............................   Passed    0.00 sec
-    Start 4: model
-4/5 Test #4: model ............................   Passed    0.00 sec
-    Start 5: weights
-5/5 Test #5: weights ..........................   Passed    0.01 sec
 
-100% tests passed, 0 tests failed out of 5
 
-Total Test time (real) =   0.05 sec
+
+
+
+
+                        ++**
+                    --##%%%%
+                    %%%%%%%%++
+                  ++%%%%%%%%%%%%==
+                ..%%%%##**%%%%%%%%
+                ::%%**    --##%%@@##
+                --%%::      **%%%%**
+                **%%++      %%%%%%==
+                --%%##..--++%%%%%%%%..
+                  %%%%%%%%%%**..##%%++
+                  ::%%@@%%++    ==%%##..
+                    ::++++        **%%++
+                                  --%%##
+                                    ++%%==
+                                    ..%%%%..
+                                      ==%%**
+                                        ##%%..
+                                        ..%%++
+                                          **%%..
+                                            ##::
+
+
+
+image #7   label: 9   prediction: 9   (correct)
+ 0: 0.0000
+ 1: 0.0000
+ 2: 0.0001
+ 3: 0.0031
+ 4: 0.0001
+ 5: 0.0000
+ 6: 0.0000
+ 7: 0.0029
+ 8: 0.0000
+ 9: 0.9939
 
 ```
 
@@ -53,11 +78,13 @@ mini_infer/
 │   ├── ops.h           # GEMM
 │   ├── layers.h        # layer interface
 │   ├── model.h         # Sequential
-│   └── loader.h        # loader
+│   ├── loader.h        # loader
+│   └── mnist.h         # read MNIST data
 ├── src/
 │   ├── ops.cpp     
-│   ├── layers.cpp
-│   └── loader.cpp
+│   ├── layers.cpp 
+│   ├── loader.cpp
+│   └── mnist.cpp       # read MNIST data
 ├── tools/
 │   ├── gen_gemm_ref.py     # generate matrix
 │   ├── gen_ops_ref.py      # generate matrix
@@ -69,5 +96,6 @@ mini_infer/
 │   ├── test_model.cpp      # test model
 │   └── test_weights.cpp    # test weights
 ├── bench/
-└── apps/
+└── apps/ 
+    └── mnist_infer.cpp     # inference
 ```

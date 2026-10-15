@@ -13,6 +13,7 @@ class Tensor {
         Tensor() = default; 
         explicit Tensor(std::vector<size_t> shape) 
             : shape_(std::move(shape)), data_(numel_of(shape_), 0.0f) {} 
+            
         Tensor(std::vector<size_t> shape, std::vector<float> data) 
             : shape_(std::move(shape)), data_(std::move(data)) { 
         if (data_.size() != numel_of(shape_)) 
@@ -34,7 +35,7 @@ class Tensor {
     private: 
         static size_t numel_of(const std::vector<size_t>& s) { 
             return std::accumulate(s.begin(), s.end(), size_t{1}, 
-            [](size_t a, size_t b) { return a * b; }); 
+                                [](size_t a, size_t b) { return a * b; }); 
         } 
     std::vector<size_t> shape_; //{2, 3} describes the multidimensional structure.
     std::vector<float> data_;   //{0, 0, 0, 0, 0, 0}; Use one-dimensional contiguous storage.

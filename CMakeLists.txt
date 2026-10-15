@@ -11,7 +11,7 @@ endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
 
-add_library(mini STATIC src/ops.cpp src/layers.cpp src/loader.cpp)
+add_library(mini STATIC src/ops.cpp src/layers.cpp src/loader.cpp src/mnist.cpp)
 target_include_directories(mini PUBLIC include)
 
 enable_testing()
@@ -37,3 +37,6 @@ target_link_libraries(test_weights PRIVATE mini)
 add_test(NAME weights COMMAND test_weights
          ${CMAKE_SOURCE_DIR}/models/mnist_mlp.bin
          ${CMAKE_SOURCE_DIR}/models/mnist_ref.bin)
+
+add_executable(mnist_infer apps/mnist_infer.cpp)
+target_link_libraries(mnist_infer PRIVATE mini)
