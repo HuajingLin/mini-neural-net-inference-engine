@@ -49,6 +49,14 @@ time: 0.135 s (74349 images/s, includes preprocessing)
 
 - 0.988 s -> 0.135 Approximately 7.3 times
 ```
+# steps
+1. Tensor
+2. GEMM
+3. Operator: bias, ReLU, and Softmax
+4. Linear layer + Sequential Executor
+5. PyTorch train and export weights
+6. Evaluation + Single-image inference
+7. Benchmark and Optimization
 
 ## Project Structure
 ```
