@@ -10,6 +10,10 @@ set(CMAKE_BUILD_TYPE Release)
 endif()
 
 add_compile_options(-Wall -Wextra -Wpedantic)
+option(MINI_NATIVE "Compile with -march=native (not portable)" OFF)
+if(MINI_NATIVE)
+  add_compile_options(-march=native)
+endif()
 
 add_library(mini STATIC src/ops.cpp src/layers.cpp src/loader.cpp src/mnist.cpp)
 target_include_directories(mini PUBLIC include)
@@ -40,3 +44,10 @@ add_test(NAME weights COMMAND test_weights
 
 add_executable(mnist_infer apps/mnist_infer.cpp)
 target_link_libraries(mnist_infer PRIVATE mini)
+
+add_executable(test_gemm_variants tests/test_gemm_variants.cpp)
+target_link_libraries(test_gemm_variants PRIVATE mini)
+add_test(NAME gemm_variants COMMAND test_gemm_variants)
+
+add_executable(bench_gemm bench/bench_gemm.cpp)
+target_link_libraries(bench_gemm PRIVATE mini)

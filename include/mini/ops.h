@@ -4,9 +4,13 @@
 
 namespace mini {
 
+using GemmFn = void (*)(const float*, const float*, float*, size_t, size_t, size_t);
+
 // C[M,N] = A[M,K] * B[K,N], row-major order; C will be overwritten
-void gemm(const float* A, const float* B, float* C,
-            size_t M, size_t K, size_t N);
+void gemm(const float* A, const float* B, float* C, size_t M, size_t K, size_t N);
+void gemm_naive(const float* A, const float* B, float* C, size_t M, size_t K, size_t N);
+void gemm_ikj(const float* A, const float* B, float* C, size_t M, size_t K, size_t N);
+void gemm_blocked(const float* A, const float* B, float* C, size_t M, size_t K, size_t N);
 
 // Tensor version: a:[M,K]  b:[K,N]  ->  [M,N]; performs shape validation
 Tensor matmul(const Tensor& a, const Tensor& b);

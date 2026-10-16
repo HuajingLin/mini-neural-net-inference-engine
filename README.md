@@ -26,50 +26,28 @@ deactivate
     data/MNIST/raw/t10k-labels-idx1-ubyte
 
 ```
-
-## output example
+# Benchmark 
 ```
+# output example
+$ ./build-native/bench_gemm
+MxKxN               naive(ijk)             ikj         blocked   (GFLOPS, higher is better)
+256x784x128               2.25           23.72           29.58   checksum diff: 1.9e-04
+256x128x64                2.99           28.92           27.70   checksum diff: 2.0e-05
+256x64x10                 3.57            8.49            7.83   checksum diff: 1.3e-05
+1x784x128                 2.26           31.07           28.40   checksum diff: 4.9e-05
 
+# Improvement in inference speed:
+$./build/mnist_infer models/mnist_mlp.bin \
+    data/MNIST/raw/t10k-images-idx3-ubyte \
+    data/MNIST/raw/t10k-labels-idx1-ubyte
+accuracy: 9754/10000 = 97.54%
+time: 0.135 s (74349 images/s, includes preprocessing)
 
+# before:
+# accuracy: 9732/10000 = 97.54%
+# time: 0.988 s (10214 images/s, includes preprocessing)
 
-
-
-
-                        ++**
-                    --##%%%%
-                    %%%%%%%%++
-                  ++%%%%%%%%%%%%==
-                ..%%%%##**%%%%%%%%
-                ::%%**    --##%%@@##
-                --%%::      **%%%%**
-                **%%++      %%%%%%==
-                --%%##..--++%%%%%%%%..
-                  %%%%%%%%%%**..##%%++
-                  ::%%@@%%++    ==%%##..
-                    ::++++        **%%++
-                                  --%%##
-                                    ++%%==
-                                    ..%%%%..
-                                      ==%%**
-                                        ##%%..
-                                        ..%%++
-                                          **%%..
-                                            ##::
-
-
-
-image #7   label: 9   prediction: 9   (correct)
- 0: 0.0000
- 1: 0.0000
- 2: 0.0001
- 3: 0.0031
- 4: 0.0001
- 5: 0.0000
- 6: 0.0000
- 7: 0.0029
- 8: 0.0000
- 9: 0.9939
-
+- 0.988 s -> 0.135 Approximately 7.3 times
 ```
 
 ## Project Structure
@@ -98,8 +76,10 @@ mini_infer/
 │   ├── test_gemm.cpp       # test GEMM
 │   ├── test_ops.cpp        # test operators
 │   ├── test_model.cpp      # test model
-│   └── test_weights.cpp    # test weights
+│   ├── test_weights.cpp    # test weights .cpp
+│   └── test_gemm_variants.cpp  
 ├── bench/
+│   └── bench_gemm.cpp  
 └── apps/ 
     └── mnist_infer.cpp     # inference
 ```

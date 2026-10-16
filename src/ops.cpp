@@ -6,7 +6,7 @@
 
 namespace mini {
 
-void gemm(const float* A, const float* B, float* C, 
+void gemm_naive(const float* A, const float* B, float* C, 
             size_t M, size_t K, size_t N) { 
     for (size_t i = 0; i < M; ++i) { 
         for (size_t j = 0; j < N; ++j) { 
@@ -18,6 +18,53 @@ void gemm(const float* A, const float* B, float* C,
         } 
     }
 }
+
+void gemm_ikj(const float* A, const float* B, float* C,
+              size_t M, size_t K, size_t N) {
+    std::fill(C, C + M * N, 0.0f);// C is the accumulation target and must be cleared to zero first
+    for (size_t i = 0; i < M; ++i) {
+        float* c_row = C + i * N;
+        for (size_t k = 0; k < K; ++k) {
+            const float a = A[i * K + k];
+            const float* b_row = B + k * N;
+            for (size_t j = 0; j < N; ++j) {
+                c_row[j] += a * b_row[j];
+            }
+        }
+    }
+}
+
+// Blocking: Keep a small KC * NC block of B in the cache so it can be reused by all rows of A.
+void gemm_blocked(const float* A, const float* B, float* C,
+                  size_t M, size_t K, size_t N) {
+    constexpr size_t KC = 64;
+    constexpr size_t NC = 128;               // 64*128*4 bytes = 32 KB, one L1 data cache
+
+    std::fill(C, C + M * N, 0.0f);
+    for (size_t jj = 0; jj < N; jj += NC) {
+        const size_t j_end = std::min(jj + NC, N);
+        for (size_t kk = 0; kk < K; kk += KC) {
+            const size_t k_end = std::min(kk + KC, K);
+            for (size_t i = 0; i < M; ++i) {
+                float* c_row = C + i * N;
+                for (size_t k = kk; k < k_end; ++k) {
+                    const float a = A[i * K + k];
+                    const float* b_row = B + k * N;
+                    for (size_t j = jj; j < j_end; ++j) {
+                        c_row[j] += a * b_row[j];
+                    }
+                }
+            }
+        }
+    }
+}
+
+void gemm(const float* A, const float* B, float* C,
+          size_t M, size_t K, size_t N) {
+    // After reviewing the benchmarks, switch to the faster one.
+    gemm_ikj(A, B, C, M, K, N);
+}
+
 
 Tensor matmul(const Tensor& a, const Tensor& b) { 
     if (a.ndim() != 2 || b.ndim() != 2) 
